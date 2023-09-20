@@ -8,15 +8,24 @@ import processing.event.MouseEvent;
  * user clicks the mouse, the drop is moved over to the
  * location of the click;
  */
-public class CircleWorld {
+public class SuperDashWorld {
     // the position of the drop
     double x;
     double y;
+    Obstacle p1;
 
 
-    public CircleWorld(double x, double y) {
+    public SuperDashWorld(double x, double y, Obstacle p1) {
         this.x = x;
         this.y = y; 
+        this.p1 = p1;
+    }
+    
+    /** 
+     * Updates the state of this world
+     */
+    public SuperDashWorld update() {
+        return new SuperDashWorld(this.x, this.y, this.p1.update());
     }
     
     /**
@@ -28,15 +37,18 @@ public class CircleWorld {
         p.text("Super Dash", 175, 25);
         p.fill(255);
         p.square((int)this.x, (int)this.y, 15);
+        
+        p1.draw(p);
+        
         return p;
     }
     
-    public CircleWorld keyPressed(KeyEvent kev) {
+    public SuperDashWorld keyPressed(KeyEvent kev) {
     	
     	if (kev.getKeyCode() == PApplet.UP) {
-            return new CircleWorld(this.x, this.y - 5);
+            return new SuperDashWorld(this.x, this.y - 5, this.p1);
     	} else if (kev.getKeyCode() == PApplet.DOWN){
-    		return new CircleWorld(this.x, this.y + 5);
+    		return new SuperDashWorld(this.x, this.y + 5, this.p1);
         } else {
             return this;
         }
