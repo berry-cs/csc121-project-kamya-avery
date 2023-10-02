@@ -24,15 +24,15 @@ public class Obstacle {
     }
     
     /**
-     * Produces an updated world where the drop moves
-     * down a little bit, if it hasn't hit the bottom
-     * of the screen yet.
+     * Produces an updated world where the obstacle moves
+     * across the screen a little bit, if it hasn't hit 
+     * the left side of the screen yet.
      */
     
     public Obstacle update() {        
     	
     	if (this.loc.getX() > 0) {
-            return new Obstacle(this.loc.translate(new Posn(-.5f, 0)));
+            return new Obstacle(this.loc.translate(new Posn(-0.5f, 0)));
         } else {
             return this;
         }

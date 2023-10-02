@@ -12,7 +12,7 @@ public class SuperDashApp extends PApplet {
     }
     
     public void setup() {
-    	w = new SuperDashWorld(50, 200, new Obstacle(new Posn(400, 100)));
+    	w = new SuperDashWorld(new Player(new Posn(50, 200)), new Obstacle(new Posn(400, 100)));
     }
     
     public void draw() {

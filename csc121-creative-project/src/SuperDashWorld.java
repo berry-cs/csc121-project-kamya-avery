@@ -9,48 +9,61 @@ import processing.event.MouseEvent;
  * location of the click;
  */
 public class SuperDashWorld {
+	
     // the position of the drop
-    double x;
-    double y;
-    Obstacle p1;
+    Player p1;
+    Obstacle o1;
 
 
-    public SuperDashWorld(double x, double y, Obstacle p1) {
-        this.x = x;
-        this.y = y; 
-        this.p1 = p1;
+    public SuperDashWorld(Player p1, Obstacle o1) {
+    	
+        this.p1 = p1; 
+        this.o1 = o1;
+        
     }
     
     /** 
      * Updates the state of this world
      */
+    
     public SuperDashWorld update() {
-        return new SuperDashWorld(this.x, this.y, this.p1.update());
+    	
+        return new SuperDashWorld(p1, this.o1.update());
+        
     }
     
     /**
      * Renders a picture of the drop on the window
      */
+    
     public PApplet draw(PApplet p) {
+    	
         p.background(0,125,225);
         p.textSize(20);
         p.text("Super Dash", 175, 25);
         p.fill(255);
-        p.square((int)this.x, (int)this.y, 15);
-        
-        p1.draw(p);
+        p.square(p1.loc.getX(), p1.loc.getY(), 15);
+       
+        o1.draw(p);
         
         return p;
+        
     }
     
     public SuperDashWorld keyPressed(KeyEvent kev) {
     	
     	if (kev.getKeyCode() == PApplet.UP) {
-            return new SuperDashWorld(this.x, this.y - 5, this.p1);
+    		
+            return new SuperDashWorld(this.p1.update(-0.5f), this.o1);
+            
     	} else if (kev.getKeyCode() == PApplet.DOWN){
-    		return new SuperDashWorld(this.x, this.y + 5, this.p1);
+    		
+    		return new SuperDashWorld(this.p1.update(0.5f), this.o1);
+    		
         } else {
+        	
             return this;
+            
         }
     	
     }
@@ -69,7 +82,12 @@ public class SuperDashWorld {
      * Produces a string rendering of the position of the
      * drop
      */
-    public String toString() {
-        return "[" + x + ", " + y + "]";
-    }
+    
+    @Override
+	public String toString() {
+    	
+		return "SuperDashWorld [p1=" + p1 + ", o1=" + o1 + "]";
+		
+	}
+    
 }

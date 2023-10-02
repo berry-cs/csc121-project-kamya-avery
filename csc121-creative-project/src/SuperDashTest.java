@@ -6,7 +6,16 @@ import processing.event.*;
 
 class SuperDashTest {
 
+	Player tp1 = new Player(new Posn(50, 200));
+	
     Obstacle cw1 = new Obstacle(new Posn(100, 150));
+    Obstacle cw2 = new Obstacle(new Posn(200, 150));
+    Obstacle cw3 = new Obstacle(new Posn(200, 250));
+    Obstacle cw4 = new Obstacle(new Posn(300, 100));
+    Obstacle cw5 = new Obstacle(new Posn(100, 250));
+    
+    ILoO mtloo = new MTLoO();
+    ILoO oL1 = new ConsLoO(this.cw1, new ConsLoO(this.cw2, new ConsLoO(this.cw3, mtloo)));
     
     @Test
     void testUpdateObstacle() {        
