@@ -5,14 +5,14 @@ import processing.event.*;
  * Provides the scaffolding to launch a Processing application
  */
 public class SuperDashApp extends PApplet {
-    SuperDashWorld w;
+    IWorld w;
     
     public void settings() {
         this.size(400, 400);
     }
     
     public void setup() {
-    	w = new SuperDashWorld(new Player(new Posn(50, 200)), new Obstacle(new Posn(400, 100)));
+    	w = new StartWorld();
     }
     
     public void draw() {

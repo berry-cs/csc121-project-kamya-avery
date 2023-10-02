@@ -8,28 +8,36 @@ import processing.event.MouseEvent;
  * user clicks the mouse, the drop is moved over to the
  * location of the click;
  */
-public class SuperDashWorld {
+
+
+
+public class SuperDashWorld  implements IWorld {
 	
     // the position of the drop
     Player p1;
-    Obstacle o1;
+    ILoO obs;
+    double generateRate = 0.01;  // the probability of a new obstacle appearing on each update
 
 
-    public SuperDashWorld(Player p1, Obstacle o1) {
-    	
-        this.p1 = p1; 
-        this.o1 = o1;
-        
-    }
-    
-    /** 
+    public SuperDashWorld(Player p1, ILoO obs) {
+		super();
+		this.p1 = p1;
+		this.obs = obs;
+	}
+
+	/** 
      * Updates the state of this world
      */
     
-    public SuperDashWorld update() {
-    	
-        return new SuperDashWorld(p1, this.o1.update());
-        
+    public IWorld update() {
+    	if (this.obs.anyCollided( p1.getLoc() )) {
+    		return this;
+    	} else if (Math.random() < this.generateRate) {
+    		return new SuperDashWorld(p1, new ConsLoO(new Obstacle(), this.obs));
+    		
+    	} else {
+    		return new SuperDashWorld(p1, this.obs.update().removeEscaped());
+    	}
     }
     
     /**
@@ -44,22 +52,27 @@ public class SuperDashWorld {
         p.fill(255);
         p.square(p1.loc.getX(), p1.loc.getY(), 15);
        
-        o1.draw(p);
+        this.obs.draw(p);
+        //o1.draw(p);
         
         return p;
         
     }
     
-    public SuperDashWorld keyPressed(KeyEvent kev) {
+    public IWorld keyPressed(KeyEvent kev) {
     	
     	if (kev.getKeyCode() == PApplet.UP) {
     		
-            return new SuperDashWorld(this.p1.update(-0.5f), this.o1);
+            return new SuperDashWorld(this.p1.update(-5f), this.obs);
             
     	} else if (kev.getKeyCode() == PApplet.DOWN){
     		
-    		return new SuperDashWorld(this.p1.update(0.5f), this.o1);
+    		return new SuperDashWorld(this.p1.update(5f), this.obs);
     		
+        } else if (kev.getKey() == 'p') {
+        	
+        	return new PauseWorld(this);
+        	
         } else {
         	
             return this;
@@ -67,6 +80,11 @@ public class SuperDashWorld {
         }
     	
     }
+
+	@Override
+	public String toString() {
+		return "SuperDashWorld [p1=" + p1 + ", obs=" + obs + "]";
+	}
     
     /**
      * Produces an updated world with the position of the
@@ -83,11 +101,5 @@ public class SuperDashWorld {
      * drop
      */
     
-    @Override
-	public String toString() {
-    	
-		return "SuperDashWorld [p1=" + p1 + ", o1=" + o1 + "]";
-		
-	}
     
 }

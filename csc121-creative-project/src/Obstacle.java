@@ -1,4 +1,5 @@
 import java.util.Objects;
+import java.util.Random;  // RandomNumberGenerator
 
 import processing.core.*;
 import processing.event.KeyEvent;
@@ -13,6 +14,12 @@ public class Obstacle {
 	public Obstacle(Posn loc) {
         this.loc = loc;
     }
+	
+	/* constructs a randomly-placed obstacle */
+	public Obstacle() {
+		Random rgen = new Random();
+		this.loc = new Posn( 400,  rgen.nextFloat(20, 300) );
+	}
 
     /**
      * Renders a picture of the drop on the window

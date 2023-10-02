@@ -25,6 +25,12 @@ class Player {
         }
     	
     }
+    
+    
+    public Posn getLoc() {
+    	return this.loc;
+    }
+    
 
 	@Override
 	public int hashCode() {

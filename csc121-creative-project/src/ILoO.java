@@ -3,13 +3,49 @@
 
 import java.util.Objects;
 
+import processing.core.PApplet;
+
 interface ILoO {
+	
+	/** update all the obstacles in this list */
+	ILoO update();
+
+	/** draw all the obstacles in this list */
+	PApplet draw(PApplet p);
+
+	/** produce a list with all obstacles removed that have reached x <= 1 */
+	ILoO removeEscaped();
+
+	/** determine if any of the obstacles in this list have hit the given loc */
+	boolean anyCollided(Posn loc);
 
 }
 
 class MTLoO implements ILoO {
 	
 	MTLoO() {}
+
+	@Override
+	public ILoO update() {
+		return this;
+	}
+
+	@Override
+	public PApplet draw(PApplet p) {
+		return p;
+	}
+
+	@Override
+	public ILoO removeEscaped() {
+		// TODO Auto-generated method stub
+		return this;
+	}
+
+	@Override
+	public boolean anyCollided(Posn loc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
 
@@ -24,6 +60,33 @@ class ConsLoO implements ILoO {
 		this.rest = rest;
 		
 	}
+	
+
+	@Override
+	public ILoO update() {
+		return new ConsLoO(this.first.update(), this.rest.update());
+	}
+
+	@Override
+	public PApplet draw(PApplet p) {
+		this.first.draw(p);
+		this.rest.draw(p);
+		return p;
+	}
+	
+	@Override
+	public ILoO removeEscaped() {
+		// TODO Auto-generated method stub
+		return this;
+	}
+	
+	@Override
+	public boolean anyCollided(Posn loc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
 	
 	/* TEMPLATE:
 	  public ??? ilobMethod(...) {
@@ -56,5 +119,8 @@ class ConsLoO implements ILoO {
 	public String toString() {
 		return "ConsLoO [first=" + first + ", rest=" + rest + "]";
 	}
+
+
+
 	
 }
