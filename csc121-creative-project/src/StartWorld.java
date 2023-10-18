@@ -11,7 +11,7 @@ public class StartWorld implements IWorld {
 	@Override
 	public PApplet draw(PApplet p) {
 		p.background(200);
-		p.text("Press spacebar to start", 200, 200);
+		p.text("Press spacebar to start", 150, 200);
 		return p;
 	}
 

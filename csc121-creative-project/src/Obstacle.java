@@ -38,7 +38,7 @@ public class Obstacle {
     
     public Obstacle update() {        
     	
-    	if (this.loc.getX() > 0) {
+    	if (this.loc.getX() > -10) {
             return new Obstacle(this.loc.translate(new Posn(-0.5f, 0)));
         } else {
             return this;
