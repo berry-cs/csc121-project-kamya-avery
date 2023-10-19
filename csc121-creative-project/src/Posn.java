@@ -2,8 +2,9 @@ import java.util.Objects;
 import processing.core.PApplet;
 
 public class Posn {
-    float x;
-    float y;
+	
+    private float x;
+    private float y;
 
     public Posn(float x, float y) {
         this.x = x;

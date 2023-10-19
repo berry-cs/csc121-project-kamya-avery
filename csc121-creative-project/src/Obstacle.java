@@ -8,7 +8,7 @@ import processing.core.PApplet;
 
 public class Obstacle {
 	
-	Posn loc;
+	private Posn loc;
 	
 	
 	public Obstacle(Posn loc) {
@@ -25,9 +25,13 @@ public class Obstacle {
      * Renders a picture of the drop on the window
      */
     public PApplet draw(PApplet p) {
-        p.fill(255);
-        p.circle((int)this.loc.getX(), (int)this.loc.getY(), 15);
+    	
+    	PImage img = p.loadImage("fire-ball.png");
+    	p.image(img, (int)this.loc.getX(), (int)this.loc.getY(), 40, 30);
+        //p.fill(255);
+        //p.circle((int)this.loc.getX(), (int)this.loc.getY(), 15);
         return p;
+        
     }
     
     /**
@@ -38,13 +42,40 @@ public class Obstacle {
     
     public Obstacle update() {        
     	
-    	if (this.loc.getX() > -10) {
-            return new Obstacle(this.loc.translate(new Posn(-0.5f, 0)));
+    	if (this.loc.getX() > -30) {
+            return new Obstacle(this.loc.translate(new Posn(-1f, 0)));
         } else {
             return this;
         }
     	
     }
+    
+    public Posn getLoc() {
+		
+		return this.loc;
+		
+	}
+    
+    public int getX(Posn loc) {
+
+		return (int) loc.getX();
+
+	}
+
+	public int getY(Posn loc) {
+
+		return (int) loc.getY();
+
+	}
+	
+    public boolean anyCollide( Posn p ) {
+		
+		return p.getX() <= (this.getX(this.getLoc()) + 5) &&
+			   p.getX() >= (this.getX(this.getLoc()) - 5) &&
+			   p.getY() <= (this.getY(this.getLoc()) + 5) &&
+			   p.getY() >= (this.getY(this.getLoc()) - 5);
+		
+	}
 
     @Override
     public int hashCode() {

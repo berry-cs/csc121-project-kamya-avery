@@ -19,7 +19,8 @@ public class PauseWorld implements IWorld {
 	public PApplet draw(PApplet p) {
 		w.draw(p);
 		
-		p.text("PAUSED", 200, 200);
+		p.textSize(20);
+		p.text("|  |", 190, 200);
 		
 		return p;
 	}
