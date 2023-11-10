@@ -43,7 +43,7 @@ public class StartWorld implements IWorld {
     public IWorld keyPressed(KeyEvent kev) {
     	
         if (kev.getKey() == ' ') {
-            return  new SuperDashWorld(new Player(new Posn(50, 200)), new MTLoO());
+            return  new SuperDashWorld(new Player(new Posn(50, 200)), new MTLoO(), 0);
         } else {
             return this;
         }

@@ -82,8 +82,7 @@ class ConsLoO implements ILoO {
 	
 	@Override
 	public boolean anyCollided(Posn loc) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.first.anyCollide(loc) || this.rest.anyCollided(loc);
 	}
 
 	

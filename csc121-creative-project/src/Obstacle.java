@@ -69,11 +69,14 @@ public class Obstacle {
 	}
 	
     public boolean anyCollide( Posn p ) {
+    	return this.loc.distanceTo(p) < 10;
 		
+    	/*
 		return p.getX() <= (this.getX(this.getLoc()) + 5) &&
 			   p.getX() >= (this.getX(this.getLoc()) - 5) &&
 			   p.getY() <= (this.getY(this.getLoc()) + 5) &&
 			   p.getY() >= (this.getY(this.getLoc()) - 5);
+			   */
 		
 	}
 
