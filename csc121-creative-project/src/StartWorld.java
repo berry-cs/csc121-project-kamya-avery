@@ -22,7 +22,7 @@ public class StartWorld implements IWorld {
     	
         p.background(0,125,225);
         // draw hero
-        draw(p, "super-hero.png", 200, 60, 200, 80);
+        draw(p, "super-hero.png", 200, 110, 280, 160);
         // draw fire
         draw(p, "fire-ball.png", 40, 40, 60, 40);
         draw(p, "fire-ball.png", 220, 350, 60, 40);
