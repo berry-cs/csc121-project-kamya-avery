@@ -5,14 +5,11 @@ import processing.event.KeyEvent;
 public class EndWorld implements IWorld {
 
 	private SuperDashWorld w;
-	private Player p;
-	private ILoO obs;
 	
 
-	public EndWorld(SuperDashWorld w, ILoO obs) {
+	public EndWorld(SuperDashWorld w) {
 		super();
 		this.w = w;
-		this.obs = obs;
 	}
 	
 	@Override
@@ -27,14 +24,16 @@ public class EndWorld implements IWorld {
 		w.draw(p);
 		
 		p.textSize(50);
-		p.text("Game Over", 100, 200);
+		p.text("Game Over", 90, 200);
+		p.textSize(20);
+		p.text("Press 'r' to restart", 130, 250);
 		
 		return p;
 	}
 	
 	public IWorld keyPressed(KeyEvent kev) {
 		
-		if (kev.getKey() == 'r' && obs.anyCollided(p.getLoc())) {
+		if (kev.getKey() == 'r') {
 			return  new SuperDashWorld(new Player(new Posn(50, 200)), new MTLoO(), 0);
         } else {
             return this;

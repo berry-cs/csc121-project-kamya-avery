@@ -6,10 +6,14 @@ import processing.event.KeyEvent;
 
 import processing.core.PApplet;
 
+
+
+
+
+
 public class Obstacle {
 	
 	private Posn loc;
-	
 	
 	public Obstacle(Posn loc) {
         this.loc = loc;
@@ -24,10 +28,8 @@ public class Obstacle {
     /**
      * Renders a picture of the drop on the window
      */
-    public PApplet draw(PApplet p) {
-    	
-    	PImage img = p.loadImage("fire-ball.png");
-    	p.image(img, (int)this.loc.getX(), (int)this.loc.getY(), 40, 30);
+    public PApplet draw(PApplet p) { 	
+    	p.image(ImageLibrary.getFireballImage(p), (int)this.loc.getX(), (int)this.loc.getY(), 40, 30);
         //p.fill(255);
         //p.circle((int)this.loc.getX(), (int)this.loc.getY(), 15);
         return p;

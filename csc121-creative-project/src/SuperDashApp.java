@@ -20,10 +20,6 @@ public class SuperDashApp extends PApplet {
     	w.draw(this);
     }
     
-    public void mousePressed(MouseEvent mev) {
-    	//w = w.mousePressed(mev);
-    }
-    
     public void keyPressed(KeyEvent kev) {
         w = w.keyPressed(kev);
     }

@@ -43,7 +43,7 @@ public class SuperDashWorld  implements IWorld {
     			this.highScore = score();
     			this.writeHighScore();
     		}
-    		return new EndWorld(this ,obs);
+    		return new EndWorld(this);
     	} else if ( Math.random() < this.generateRate ) {
     		return new SuperDashWorld(p1.update(), new ConsLoO(new Obstacle(), this.obs), this.ticks + 1);
     	} else {
@@ -67,16 +67,7 @@ public class SuperDashWorld  implements IWorld {
             throw new IllegalArgumentException("invalid hour " + highScore);
         }
         this.highScore = highScore;
-        //this.readings[highScore] = highScore;
     }
-    
-    /**
-     * Returns true if there is a temperature 
-     * recorded for the given hour
-     *
-    public boolean hasScore(int score) {
-    	return this.readings[score] >= 0;
-    } */
     
     /* writes out the current this.highScore value to the output file */
     public void writeHighScore()  {
@@ -89,15 +80,6 @@ public class SuperDashWorld  implements IWorld {
 	    	
 	    	// write out a summary of highScore data to the output file
 	    	pw.println( this.highScore );
-	    	
-	    	/*&
-	    	for ( int score = 0 ; score < 24 ; score ++) {
-	    		SuperDashWorld sdw = new SuperDashWorld( p1.update(), new ConsLoO(new Obstacle(), this.obs), this.ticks );;
-				if ( sdw.hasScore(highScore) ) {
-					pw.println( "" + highScore );
-				}
-			}
-			*/
 	
 	    	pw.close();
     	} catch (FileNotFoundException exp) {
@@ -108,8 +90,6 @@ public class SuperDashWorld  implements IWorld {
 
     /* opens the high score file and reads its contents into this.highScore */
     public void readHighScore()  {
-
-    	//SuperDashWorld sdw = new SuperDashWorld( p1.update(), new ConsLoO(new Obstacle(), this.obs), this.ticks );
     	
     	try {
 	    	String fileName = "leaderboard.txt";
@@ -118,15 +98,6 @@ public class SuperDashWorld  implements IWorld {
 	    	Scanner sc = new Scanner( new File(fileName) );
 	    	
 	    	this.highScore = sc.nextInt();
-	    	
-	    	/*
-	
-	    	// read in lines of the file and record in bdr
-	    	while( sc.hasNextInt() ) {
-	    		int score = sc.nextInt();
-	    		sdw.recordScore(score);
-	    	}
-	    	*/
 	    	
 	    	sc.close();
     	} catch (FileNotFoundException exp) {
@@ -142,12 +113,11 @@ public class SuperDashWorld  implements IWorld {
      */
     public PApplet draw(PApplet p) {
     	p.imageMode(PApplet.CENTER);
-    	PImage img = p.loadImage("super-hero.png");
     	p.background(0,125,225);
     	p.textSize(20);
     	p.text("Super Dash", 160, 25);
     	p.fill(255);
-    	p.image(img, p1.getX(p1.getLoc()), p1.getY(p1.getLoc()), 50, 40);
+    	p.image(ImageLibrary.getSuperHeroImage(p), p1.getX(p1.getLoc()), p1.getY(p1.getLoc()), 50, 40);
 
     	this.obs.draw(p);
 
@@ -163,8 +133,7 @@ public class SuperDashWorld  implements IWorld {
     	if (kev.getKeyCode() == PApplet.UP && p1.getLoc().getY() > 0) {
     		
     		if ( p1.getSpeed() > 0 ) {
-    			p1.setSpeed(-p1.getSpeed());
-    			return new SuperDashWorld(this.p1.addToSpeed(-1), this.obs, this.ticks);
+    			return new SuperDashWorld(this.p1.setSpeed(-1), this.obs, this.ticks);
     		} else {
     			return new SuperDashWorld(this.p1.addToSpeed(-1), this.obs, this.ticks);
     		}
@@ -172,8 +141,7 @@ public class SuperDashWorld  implements IWorld {
     	} else if (kev.getKeyCode() == PApplet.DOWN && p1.getLoc().getY() < 400) {  // means the player is going DOWN currently
     		
     		if ( p1.getSpeed() < 0 ) {
-    			p1.setSpeed(-p1.getSpeed());
-    			return new SuperDashWorld(this.p1.addToSpeed(1), this.obs, this.ticks);
+    			return new SuperDashWorld(this.p1.setSpeed(1), this.obs, this.ticks);
     		} else {
     			return new SuperDashWorld(this.p1.addToSpeed(1), this.obs, this.ticks);
     		}
@@ -181,17 +149,7 @@ public class SuperDashWorld  implements IWorld {
         } else if (kev.getKey() == 'p') {
         	
         	return new PauseWorld(this);
-        
-        } else if (this.obs.anyCollided(p1.getLoc())) { 
-        	
-        	return new EndWorld(this, obs);
        
-        /*	
-        } else if (kev.getKey() == 'p' && this.obs.anyCollided(p1.getLoc())) {
-        	
-        	return new SuperDashWorld(new Player(new Posn(50, 200)), new MTLoO(), 0);
-        	
-        */
         } else {
         	
             return this;
